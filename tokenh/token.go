@@ -2,10 +2,11 @@ package tokenh
 
 import (
 	"github.com/gogf/gf/v2/util/gconv"
-	"senchow/common/md5h"
-	"senchow/common/randh"
+	"github.com/gogf/gf/v2/util/grand"
+	"github.com/tyronechan294/go-comm/md5h"
+	"github.com/tyronechan294/go-comm/randh"
 )
 
 func New(id uint64, salt string) string {
-	return md5h.New(gconv.String(id)+salt) + randh.Str(32)
+	return md5h.Enc(gconv.String(id)+salt) + grand.Str(randh.AlphaNumeric, 32)
 }
