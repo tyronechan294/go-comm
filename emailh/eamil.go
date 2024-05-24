@@ -1,8 +1,13 @@
 package emailh
 
 import (
+	"github.com/tyronechan294/go-comm/configh"
 	"gopkg.in/gomail.v2"
 )
+
+func New(smtp configh.Smtp) *gomail.Dialer {
+	return gomail.NewDialer(smtp.Host, smtp.Port, smtp.Username, smtp.Password)
+}
 
 func Send(dialer gomail.Dialer, subject string, html string, from string, to ...string) error {
 
