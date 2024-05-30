@@ -77,7 +77,6 @@ func ConsumerConnectHandlerWithTag(
 	channel string,
 	config *nsq.Config,
 	addr string,
-	concurrency int,
 	handler nsq.Handler,
 ) (consumer *nsq.Consumer, err error) {
 	return ConsumerConnectHandler(
