@@ -48,3 +48,9 @@ func DeferredPublishWithTag(nsqProducer *nsq.Producer, topic string, tag string,
 		body,
 	)
 }
+
+//////////
+
+func NewConsumerWithTag(topic string, tag string, channel string, config *nsq.Config) (*nsq.Consumer, error) {
+	return nsq.NewConsumer(topic+"_"+tag, channel, config)
+}
