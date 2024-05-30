@@ -51,6 +51,42 @@ func DeferredPublishWithTag(nsqProducer *nsq.Producer, topic string, tag string,
 
 //////////
 
-func NewConsumerWithTag(topic string, tag string, channel string, config *nsq.Config) (*nsq.Consumer, error) {
-	return nsq.NewConsumer(topic+"_"+tag, channel, config)
+func ConsumerConnectConcurrentHandler(
+	topic string,
+	channel string,
+	config *nsq.Config,
+	addr string,
+	concurrency int,
+	handler nsq.Handler,
+) (consumer *nsq.Consumer, err error) {
+
+	consumer, err = nsq.NewConsumer(topic, channel, config)
+	if valueh.IsNotEmpty(err) {
+		return
+	}
+
+	consumer.AddConcurrentHandlers(handler, concurrency)
+
+	err = consumer.ConnectToNSQD(addr)
+
+	return
+}
+
+func ConsumerConnectConcurrentHandlerWithTag(
+	topic string,
+	tag string,
+	channel string,
+	config *nsq.Config,
+	addr string,
+	concurrency int,
+	handler nsq.Handler,
+) (consumer *nsq.Consumer, err error) {
+	return ConsumerConnectConcurrentHandler(
+		topic+"_"+tag,
+		channel,
+		config,
+		addr,
+		concurrency,
+		handler,
+	)
 }
