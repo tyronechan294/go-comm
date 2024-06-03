@@ -11,6 +11,10 @@ type RocketMQ struct {
 	SecretKey string
 }
 
+type Nsq struct {
+	Host string
+}
+
 type Smtp struct {
 	Host     string
 	Port     int
@@ -27,8 +31,10 @@ type Config struct {
 
 	MySQL string
 
-	Rds      Rds
-	RocketMQ RocketMQ
+	Rds Rds
+	//RocketMQ RocketMQ
+
+	Nsq Nsq
 
 	Smtp Smtp
 }
